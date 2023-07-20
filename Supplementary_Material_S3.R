@@ -231,4 +231,62 @@ ggplot() +
   guides(colour=guide_legend(title="Step"), fill = guide_legend(title="Step"))
 
 #ggsave("image.jpeg", width = 180, height = 120, units = c("mm"), dpi = 600)
+
+# figure 2
+# libraries
+library(readxl)
+library(car)
+library(ggplot2)
+library(emmeans)
+library(dplyr)
+library(lme4)
+
+# insert data
+data <- read_excel("RodriguesDaudt_etal_SDM_SWAO_BGLM_data.xlsx", sheet = "Plan1")
+
+# frequentist Binomial model
+mod <- glm(cbind(excellent, total-excellent) ~ class, data = data, family = binomial(link="logit"))
+Anova(mod)
+
+# generating data from model
+yhat.df <- emmeans(mod, ~ class, at=list(class=seq(min(data$class),max(data$class),by=ifelse(max(data$class)>1000,1,.1))), type='response') %>%
+  as.data.frame()
+
+# choose the cutoff! ex. .5, .9, etc
+prob_excel1 <- .5
+prob_excel2 <- .9
+# class at excellency
+cut1 <- filter(yhat.df, prob >= prob_excel1)
+cut2 <- filter(yhat.df, prob >= prob_excel2)
+
+classexcel1 <- round(min(cut1$class),3)
+classexcel1
+classexcel2 <- round(min(cut2$class),3)
+classexcel2
+# plot
+ggplot() +
+  geom_line(data = yhat.df, aes(y = asymp.LCL, x = class), col="grey", lty=1, lwd=.8) +
+  geom_line(data = yhat.df, aes(y = asymp.UCL, x = class), col="grey", lty=1, lwd=.8) +
+  geom_line(data = yhat.df, aes(y = prob, x = class), col="black", lty=1, lwd=1) +
+  geom_segment(aes(x = -15, xend = classexcel1, y = prob_excel1, yend = prob_excel1), color ="#ef8a62", size =.8, linetype = "longdash")+
+  geom_segment(aes(x = classexcel1, xend = classexcel1, y = -.5, yend = prob_excel1), color ="#ef8a62", size =.8, linetype = "longdash")+
+  geom_segment(aes(x = -15, xend = classexcel2, y = prob_excel2, yend = prob_excel2), color ="#2166ac", size =.8, linetype = "longdash")+
+  geom_segment(aes(x = classexcel2, xend = classexcel2, y = -.5, yend = prob_excel2), color ="#2166ac", size =.8, linetype = "longdash")+
+  geom_point(data = data[-1,], aes(x = class, y = excellent/total), colour = "black", shape = 16, size=3)+
+  annotate(geom = "text",x = quantile(seq(min(data$class),max(data$class)),.9), y = .9, label = bquote(Layer[50] %~~% "5-8"), color = "#ef8a62") +
+  annotate(geom = "text",x = quantile(seq(min(data$class),max(data$class)),.9), y = .85, label = bquote(Layer[90] %~~% "13-16"), color = "#2166ac") +
+  geom_point(aes(x = 0, y = 0), colour = "red3", shape = 4, stroke=2) +
+  ylab("Probability of excellent performance (AUC \u2265 0.9)") +
+  xlab("No of layers") +
+  scale_x_continuous(breaks = as.numeric(data$class), labels=c("0", "1-4", "5-8", "9-12",
+                                                               "13-16", "17-20", "21-24",
+                                                               "32", "34")) +
+  coord_cartesian(xlim = c(min(data$class),max(data$class)), ylim = c(0,1))+
+  theme(panel.background = element_blank(),
+        axis.line = element_line(colour = "black"),
+        panel.grid.major = element_line(color = "grey90", linewidth = 0.1, linetype = 2), legend.position = 'none')
+
+# saving plot
+#ggsave("image.jpeg", width = 120, height = 100, units = c("mm"), dpi = 600)
+
 ###-----------End of Analysis-------------###
