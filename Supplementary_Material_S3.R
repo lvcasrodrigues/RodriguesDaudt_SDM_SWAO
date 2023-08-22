@@ -1,8 +1,8 @@
 ###--------------------------------------------###
-###------------Rodrigues & Daudt 202x----------###
+###------------Rodrigues & Daudt 2023----------###
 ###---Spatial modelling in SW Atlantic Ocean---###
 ###-----------Ecological Modelling-------------###
-###-----------Updated May 23 2023--------------###
+###----------Updated August 22 2023------------###
 ###--------------------------------------------###
 
 # clean global environment
@@ -57,7 +57,7 @@ stack_bar_yearly <- read_excel("data_stack.xlsx", sheet = "Plan1")
 stack_bar_yearly$year <- as.numeric(stack_bar_yearly$year)
 
 # yearly and cumulative scientific production plot by focus of research
-# Figure 1a
+# Figure 1
 ggplot()  + 
   geom_bar(data=stack_bar_yearly, aes(x=year, y=count, fill=focus),stat="identity")+
   geom_point(data=line_cumulative[line_cumulative$categ=="cumulative",], aes(x=year, y=cumulative/4),stat="identity",color="black",size=4)+
@@ -69,7 +69,7 @@ ggplot()  +
   xlab("Year")+
   theme_bw()
 
-# Figure 1b created out of code
+# Figure 2 created out of code
 
 # Scientific production by type of biological data
 # production 
@@ -80,7 +80,7 @@ bio_data <- data.frame(categ = c("half","presence-only","catch rate","presence-a
 bio_data$categ <- factor(bio_data$categ, levels = c("half","presence-only","catch rate","presence-absence","count"))
 mycols <- c("black", "#ae017e", "#f768a1","#fbb4b9","#feebe2")
 
-# Figure 1c
+# Figure 3a
 ggplot(bio_data, aes(x = 1.5, y = freq, fill = categ)) +
   geom_bar(stat = "identity", color = "white") +
   coord_polar(theta = "y", start = 0)+
@@ -98,7 +98,7 @@ env_data <- data.frame(categ = c("half","abiotic_biotic_n-i","abiotic","biotic_b
 env_data$categ <- factor(env_data$categ, levels = c("half","abiotic_biotic_n-i","abiotic","biotic_biotic_n-i_anthop"))
 mycols <- c("black", "#31a354", "#addd8e", "#f7fcb9")
 
-# Figure 1c
+# Figure 3a
 ggplot(env_data, aes(x = 1.5, y = freq, fill = categ)) +
   geom_bar(stat = "identity", color = "white") +
   coord_polar(theta = "y", start = 0)+
@@ -119,7 +119,7 @@ method_data$freq <- method_data$count/62
 method_data$method <- factor(method_data$method, levels = c("MaxEnt","GLM/GAM","BRT","RF","Bioclim",
                                                             "Mahalanobis Distance","SVM","ANN","SRE",
                                                             "MARS","Others"))
-# Figure 1d
+# Figure 3b
 ggplot(method_data, aes(x=freq*100, y=method)) +
   geom_bar(stat="identity", size=2, position=position_dodge(), fill="#ef8a62")+theme_minimal()+
   theme(panel.background = element_blank(), panel.border = element_rect(colour = "black", fill = NA, size = 1.2),
@@ -141,12 +141,24 @@ M <- metaTagExtraction(comb_WoS_Sco, Field = "AU_CO", sep = ";")
 # creating network matrix between countries
 NetMatrix <- biblioNetwork(M, analysis = "collaboration", network = "countries",short = T, sep = ";")
 
-# Figure 1e created out of code
+# Figure 4a created out of code
 
-# Figure 1f
+# Figure 4b
 net=networkPlot(NetMatrix, n = nrow(NetMatrix), halo=F, cluster = "optimal", normalize = T,
                 labelsize = 1,label = T, size.cex = T, curved = 0.1,
                 Title = "Country Collaboration", type = "mds", 
+                size=TRUE,remove.multiple=F, alpha = .8, edgesize = 10, label.n = nrow(NetMatrix),
+                community.repulsion	= 10,  
+                noloops = T, remove.isolates = T, verbose = T, edges.min = 1)
+
+
+# creating network matrix between authors
+NetMatrix <- biblioNetwork(M, analysis = "collaboration", network = "authors",short = T, sep = ";")
+
+# Figure 4c
+net=networkPlot(NetMatrix, n = nrow(NetMatrix), halo=F, cluster = "optimal", normalize = T,
+                labelsize = 1,label = F, size.cex = T, curved = 0.1,
+                Title = "Author Collaboration", type = "mds", 
                 size=TRUE,remove.multiple=F, alpha = .8, edgesize = 10, label.n = nrow(NetMatrix),
                 community.repulsion	= 10,  
                 noloops = T, remove.isolates = T, verbose = T, edges.min = 1)
@@ -232,7 +244,7 @@ ggplot() +
 
 #ggsave("image.jpeg", width = 180, height = 120, units = c("mm"), dpi = 600)
 
-# figure 2
+# figure 5
 # libraries
 library(readxl)
 library(car)
@@ -272,7 +284,8 @@ ggplot() +
   geom_segment(aes(x = classexcel1, xend = classexcel1, y = -.5, yend = prob_excel1), color ="#ef8a62", size =.8, linetype = "longdash")+
   geom_segment(aes(x = -15, xend = classexcel2, y = prob_excel2, yend = prob_excel2), color ="#2166ac", size =.8, linetype = "longdash")+
   geom_segment(aes(x = classexcel2, xend = classexcel2, y = -.5, yend = prob_excel2), color ="#2166ac", size =.8, linetype = "longdash")+
-  geom_point(data = data[-1,], aes(x = class, y = excellent/total), colour = "black", shape = 16, size=3)+
+  geom_point(data = data[-1,], aes(x = class, y = excellent/total, size = total), colour = "black", shape = 16)+
+  scale_size(name = "No of outputs", range = c(4,10), breaks = c(7, 17, 65)) +
   annotate(geom = "text",x = quantile(seq(min(data$class),max(data$class)),.9), y = .9, label = bquote(Layer[50] %~~% "5-8"), color = "#ef8a62") +
   annotate(geom = "text",x = quantile(seq(min(data$class),max(data$class)),.9), y = .85, label = bquote(Layer[90] %~~% "13-16"), color = "#2166ac") +
   geom_point(aes(x = 0, y = 0), colour = "red3", shape = 4, stroke=2) +
@@ -284,7 +297,8 @@ ggplot() +
   coord_cartesian(xlim = c(min(data$class),max(data$class)), ylim = c(0,1))+
   theme(panel.background = element_blank(),
         axis.line = element_line(colour = "black"),
-        panel.grid.major = element_line(color = "grey90", linewidth = 0.1, linetype = 2), legend.position = 'none')
+        panel.grid.major = element_line(color = "grey90", linewidth = 0.1, linetype = 2), legend.position = c(0.85,0.25),
+        legend.background = element_blank())
 
 # saving plot
 #ggsave("image.jpeg", width = 120, height = 100, units = c("mm"), dpi = 600)
