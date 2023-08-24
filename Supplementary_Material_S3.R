@@ -156,8 +156,8 @@ net=networkPlot(NetMatrix, n = nrow(NetMatrix), halo=F, cluster = "optimal", nor
 NetMatrix <- biblioNetwork(M, analysis = "collaboration", network = "authors",short = T, sep = ";")
 
 # Figure 4c
-net=networkPlot(NetMatrix, n = nrow(NetMatrix), halo=F, cluster = "optimal", normalize = T,
-                labelsize = 1,label = F, size.cex = T, curved = 0.1,
+net=networkPlot(NetMatrix, n = 30, halo=F, cluster = "optimal", normalize = T,
+                labelsize = .8,label = T, size.cex = T, curved = 0.1,
                 Title = "Author Collaboration", type = "mds", 
                 size=TRUE,remove.multiple=F, alpha = .8, edgesize = 10, label.n = nrow(NetMatrix),
                 community.repulsion	= 10,  
