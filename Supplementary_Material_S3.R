@@ -179,14 +179,16 @@ lv1a <- "107 identified from WoS"
 lv1b <- "97 identified from Scopus"
 lv2a <- "84 duplicates in both databases"
 lv2b <- "120 records screened"
-lv2c <- "2 excluded by inaccessability"
-lv3a <- "118 assessed for eligibility"
-lv3b <- "56 excluded (out of scopus)"
+lv2c <- "6 excluded by inaccessability"
+lv3a <- "114 assessed for eligibility"
+lv3b <- "17 excluded by 3rd criterion" # criteria 1: carried out outside SWAO boundaries
+lv3c <- "6 excluded by 2nd criterion" # criteria 2: did not include marine species modelling
+lv3d <- "29 excluded by 1st criterion" # criteria 3: were not in the scope of SDM
 lv4 <- "62 included"
 
 # creating data
-data <- tibble::tibble(from = c(lv1a, lv1b, lv2a, lv2b, lv2b, lv3a, lv3a),
-                         to = c(lv2a, lv2a, lv2b, lv2c, lv3a, lv3b, lv4))
+data <- tibble::tibble(from = c(lv1a, lv1b, lv2a, lv2b, lv2b, lv3a, lv3a, lv3a, lv3a),
+                         to = c(lv2a, lv2a, lv2b, lv2c, lv3a, lv3b, lv3c, lv3d, lv4))
 # data transformation
 g = graph_from_data_frame(data, directed = TRUE)
 coords = layout_as_tree(g)
@@ -195,7 +197,7 @@ output_df = as_tibble(coords) %>%
   mutate(step = vertex_attr(g, "name"),
          label = gsub("\\d+$", "", step),
          x = x*-1,
-         type = factor(c("Identification", "Identification", "Screening", "Screening", "Eligibility", "Eligibility", "Eligibility", "Included")))
+         type = factor(c("Identification", "Identification", "Screening", "Screening", "Eligibility", "Eligibility", "Eligibility","Eligibility","Eligibility", "Included")))
 output_df
 
 # data for nodes - change the sizes of boxes
@@ -229,7 +231,7 @@ ggplot() +
             alpha = 0.5) +
   geom_text(data = plot_nodes,
             mapping = aes(x = x, y = y, label = label),
-            family = "henny", size = 2.5,
+            family = "Times", size = 2,
             color = "#585c45") +
   geom_path(data = plot_edges,
             mapping = aes(x = x, y = y, group = id),
