@@ -53,7 +53,7 @@ line_cumulative <- data.frame(year = c(min(results_WoS_Sco$Years):max(results_Wo
                               freq = c(new,cumulative))
 
 # importing data for stack barplot
-stack_bar_yearly <- read_excel("data_stack.xlsx", sheet = "Plan1")
+stack_bar_yearly <- read_excel("RodriguesDaudt_etal_SDM_SWAO_BGLM_stack_data.xlsx", sheet = "Plan1")
 stack_bar_yearly$year <- as.numeric(stack_bar_yearly$year)
 
 # yearly and cumulative scientific production plot by focus of research
