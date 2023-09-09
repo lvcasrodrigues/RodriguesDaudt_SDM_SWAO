@@ -17,9 +17,10 @@ In ``, you will find the data needed to reproduce the analysis (for details, ple
   * RodriguesDaudt_etal_SDM_SWAO_BLGM_data.xlsx = data needed to run the Binomial Generalised Linear Model (BLGM);
   * RodriguesDaudt_etal_SDM_SWAO_**Code**_S1.R = R code.
 * In `RodriguesDaudt_etal_SDM_SWAO_Supplementary_Material_2.pdf` you will find supporting results, which include:
-  * Figure S1 =
-  * Figure S2 =
-  *  
+  * Figure S1 = PRISMA diagram showing the numbers from the identified literature to their inclusion in the bibliometric analyses;
+  * Table S1 = Top-10 journal publishing about SDM in SWAO, among the 62 retained articles, their impact factor and h-index;
+  * Table S2 = Top-10 most cited articles about SDM in SWAO, among the 62 retained articles, their authors, journal, publication year and DOI.
+  * Figure S2 = Expanded collaboration network among the 30 most frequent authors, accessed through the coauthors’ affiliations;
 
 ***
 ## Contributors
