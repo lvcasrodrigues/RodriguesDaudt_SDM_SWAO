@@ -22,6 +22,8 @@ Below is a detailed description of what you will find in each file.
   * **Table S2** = Top-10 most cited articles about SDM in SWAO, among the 62 retained articles, their authors, journal, publication year and DOI.
   * **Figure S2** = Expanded collaboration network among the 30 most frequent authors, accessed through coauthorship;
 
+PS: It is worth noticing that the plots generated in R were slightly modified in an external software for visualisation purposes. The results are the same, but some visualisation tweaks were done manually.
+
 ***
 ## Contributors
 
