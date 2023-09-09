@@ -2,10 +2,10 @@
 
 In this repository, you will find all the data and code from [Rodrigues, Daudt et al. (202X)](https://github.com/lvcasrodrigues/RodriguesDaudt_SDM_SWAO#citation), and the supporting results referenced in the main text.
 
-In this study, we carried out a literature search and bibliographic analyses to identify trends and gaps in published articles applying Species Distribution Modelling (SDM) in the Southwestern Atlantic Ocean (SWAO), up to 2022. 
+In this study, we carried out a literature search and bibliographic analyses to identify trends and gaps in published articles (until 2022) applying Species Distribution Modelling (SDM) in the Southwestern Atlantic Ocean (SWAO). 
 
 ***
-In ``, you will find the data needed to reproduce the analysis (for details, please check the manuscript).
+Below is a detailed description of what you will find in each file.
 
 * In `RodriguesDaudt_etal_SDM_SWAO_Supplementary_Material_1.rar` you will find the following files:
   * savedrecs_09_05_23.bib = raw data retrieved from Web of Science;
@@ -17,10 +17,10 @@ In ``, you will find the data needed to reproduce the analysis (for details, ple
   * RodriguesDaudt_etal_SDM_SWAO_BLGM_data.xlsx = data needed to run the Binomial Generalised Linear Model (BLGM);
   * RodriguesDaudt_etal_SDM_SWAO_**Code**_S1.R = R code.
 * In `RodriguesDaudt_etal_SDM_SWAO_Supplementary_Material_2.pdf` you will find supporting results, which include:
-  * Figure S1 = PRISMA diagram showing the numbers from the identified literature to their inclusion in the bibliometric analyses;
-  * Table S1 = Top-10 journal publishing about SDM in SWAO, among the 62 retained articles, their impact factor and h-index;
-  * Table S2 = Top-10 most cited articles about SDM in SWAO, among the 62 retained articles, their authors, journal, publication year and DOI.
-  * Figure S2 = Expanded collaboration network among the 30 most frequent authors, accessed through the coauthors’ affiliations;
+  * **Figure S1** = PRISMA diagram showing the numbers from the identified literature to their inclusion in the bibliometric analyses;
+  * **Table S1** = Top-10 journal publishing about SDM in SWAO, among the 62 retained articles, their impact factor and h-index;
+  * **Table S2** = Top-10 most cited articles about SDM in SWAO, among the 62 retained articles, their authors, journal, publication year and DOI.
+  * **Figure S2** = Expanded collaboration network among the 30 most frequent authors, accessed through coauthorship;
 
 ***
 ## Contributors
