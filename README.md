@@ -1,6 +1,6 @@
 # Species distribution modelling in the Southwestern Atlantic Ocean
 
-In this repository, you will find all the data and code from [Rodrigues, Daudt et al. (202X)](https://github.com/lvcasrodrigues/RodriguesDaudt_SDM_SWAO#citation), and the supporting results referenced in the main text.
+In this repository, you will find all the data and code from [Rodrigues, Daudt et al. (2023)](https://github.com/lvcasrodrigues/RodriguesDaudt_SDM_SWAO#citation), and the supporting results referenced in the main text.
 
 In this study, we carried out a literature search and bibliographic analyses to identify trends and gaps in published articles (until 2022) applying Species Distribution Modelling (SDM) in the Southwestern Atlantic Ocean (SWAO). 
 
@@ -35,6 +35,6 @@ For enquiries, please feel free to contact any of us.
 ## Citation
 Please reference the original paper if using any piece of this repository. This repository is under a CC BY 4.0 license.
 
-Rodrigues, L.S.; Daudt, N.W.; Cardoso, L.G.; Kinas, P.G.; Conesa, D.; Pennino, M.G. (202X). Species distribution modelling in the Southwestern Atlantic Ocean: a systematic review and trends. *in review*
+Rodrigues, L.d.S.; Daudt, N.W.; Cardoso, L.G.; Kinas, P.G.; Conesa, D.; Pennino, M.G. (2023). Species distribution modelling in the Southwestern Atlantic Ocean: a systematic review and trends. Ecological Modelling, 486, 110514
 
 Thanks!
